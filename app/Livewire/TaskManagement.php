@@ -82,4 +82,21 @@ class TaskManagement extends Component
         $this->status = $task->status;
         $this->task_id = $task->id;
     }
+    
+    /**
+     * updateTask
+     *
+     * @param  mixed $task
+     * @return void
+     */
+    public function updateTask(Task $task)
+    {
+        $this->validate();
+        $task->update([
+            'title' => $this->title,
+            'description' => $this->description,
+            'status' => $this->status
+        ]);
+        $this->dispatch('close-modal', 'new-task');
+    }
 }
