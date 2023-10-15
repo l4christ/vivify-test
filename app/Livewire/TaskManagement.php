@@ -25,9 +25,19 @@ class TaskManagement extends Component
 
     public function render()
     {
+        $query = Task::orderBy('id', 'desc');
+    
+        if ($this->search) {
+            $query->where(function ($query) {
+                $query->where('title', 'like', "%{$this->search}%")
+                    ->orWhere('description', 'like', "%{$this->search}%");
+            });
+        }
+
         return view('livewire.task-management', [
-            'tasks' => Task::where('title', 'like', "%{$this->search}%")->orWhere('description', 'like', "%{$this->search}%")->orderBy('id', 'desc')->paginate(5)
+            'tasks' => $query->paginate(5)
         ]);
+        
     }
 
     /**

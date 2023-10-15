@@ -125,11 +125,14 @@
                             </td>
                         </tr>
                         @empty
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                                No task created yet...
-                            </p>
-                        </td>
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p class="text-gray-900 whitespace-no-wrap">
+                                    No task created yet...
+                                </p>
+                            </td>
+                        </tr>
+                        
                         
                         @endforelse
                     </tbody>
