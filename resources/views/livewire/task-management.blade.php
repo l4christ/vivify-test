@@ -42,37 +42,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        @forelse ($tasks as $task)
                         <tr>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <div class="flex items-center">
                                     <div class="ml-3">
                                         <p class="text-gray-900 whitespace-no-wrap">
-                                            Task Title
+                                            {{ $task->title }}
                                         </p>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">Description</p>
+                                <p class="text-gray-900 whitespace-no-wrap">{{ $task->description }}</p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    created at
+                                    {{ $task->created_at->format('Y-m-d') }}
                                 </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    updated at
+                                    {{ $task->updated_at->format('Y-m-d') }}
                                 </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span>
-                                    status
+                                <span @class([ 'text-white  px-3 py-1 font-semibold capitalize rounded-full'
+                                    , 'bg-gray-500'=> $task->status == 'todo',
+                                    'bg-blue-500' => $task->status == 'inprogress',
+                                    'bg-green-500' => $task->status == 'done',
+                                    ])>{{ $task->status }}
                                 </span>
                             </td>
                             <td class="flex gap-2 items-center px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <div title="Preview Task">
+                                <div wire:click="viewTask({{ $task->id }})" title="Preview Task">
                                     <svg viewBox="0 0 24 24"
                                         class="fill-purple-700 cursor-pointer hover:bg-purple-50 p-2 w-10 rounded-md"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +88,7 @@
                                     </svg>
                                 </div>
 
-                                <div>
+                                <div wire:click="editTask({{ $task->id }})">
                                     <svg fill="none" class="cursor-pointer hover:bg-purple-50 p-2 w-10 rounded-md"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         viewBox="0 0 24 24" width="23" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +99,8 @@
                                     </svg>
                                 </div>
 
-                                <div>
+                                <div wire:confirm="Are you sure you want to delete this task?"
+                                    wire:click="deleteTask({{ $task->id }})" title="Delete Task">
                                     <svg viewBox="0 0 48 48"
                                         class="fill-red-500 cursor-pointer hover:bg-red-50 p-2 w-10 rounded-md"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +111,14 @@
                                 </div>
                             </td>
                         </tr>
+                        @empty
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            <p class="text-gray-900 whitespace-no-wrap">
+                                No task created yet...
+                            </p>
+                        </td>
                         
+                        @endforelse
                     </tbody>
                 </table>
                 <div class="mt-4">

@@ -21,7 +21,7 @@ class TaskManagement extends Component
 
     public function render()
     {
-        return view('livewire.task-management');
+        return view('livewire.task-management', ['tasks' => Task::query()->paginate(5)]);
     }
 
     /**
