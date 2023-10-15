@@ -10,4 +10,14 @@ class TaskManagement extends Component
     {
         return view('livewire.task-management');
     }
+
+    /**
+     * Open new task modal
+     *
+     * @return void
+     */
+    public function newTaskModal(): void
+    {
+        $this->dispatch('open-modal', 'new-task');
+    }
 }

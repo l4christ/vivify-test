@@ -3,7 +3,7 @@
 
         <div class="flex justify-between">
             <h2 class="text-2xl font-semibold leading-tight">Tasks</h2>
-            <button 
+            <button wire:click='newTaskModal()'
                 class="bg-purple-600 px-4 py-2 rounded-md text-white hover:bg-purple-500 cursor-pointer">
                 Add new Task
             </button>
@@ -117,4 +117,43 @@
             </div>
         </div>
     </div>
+    <x-modal name="new-task" maxWidth="md" focusable>
+        <div class="p-5">
+            <h2>Create New Task</h2>
+            <form wire:submit="createNewTask">
+                <div class="mt-5">
+                    <x-input-label for="title" value="{{ __('title') }}" class="sr-only" />
+                    
+                </div>
+                <div class="my-5">
+                    <x-input-label for="description" value="{{ __('description') }}" class="sr-only" />
+                    <textarea name="description"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                        id="description" cols="30" rows="5" placeholder="{{ __('Description') }}"></textarea>
+                    
+                </div>
+                <div class="">
+                    <x-input-label for="status" value="{{ __('status') }}" class="sr-only" />
+                    <select name="status"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                        id="status">
+                        <option> Select Status</option>
+                        <option value="todo">Todo</option>
+                        <option value="inprogress">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+                    
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Cancel') }}
+                    </x-secondary-button>
+
+                    <x-primary-button class="ml-3">
+                        {{ __('Create') }}
+                    </x-primary-button>
+                </div>
+            </form>
+        </div>
+    </x-modal>
 </div>
