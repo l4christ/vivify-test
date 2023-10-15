@@ -99,4 +99,15 @@ class TaskManagement extends Component
         ]);
         $this->dispatch('close-modal', 'new-task');
     }
+
+    /**
+     * Delete Task
+     *
+     * @param  mixed $task
+     * @return void
+     */
+    public function deleteTask(Task $task)
+    {
+        $task->delete();
+    }
 }
