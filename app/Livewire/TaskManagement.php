@@ -53,4 +53,18 @@ class TaskManagement extends Component
         ]);
         $this->dispatch('close-modal', 'new-task');
     }
+    
+    /**
+     * viewTask
+     *
+     * @param  mixed $task
+     * @return void
+     */
+    public function viewTask(Task $task)
+    {
+        $this->dispatch('open-modal', 'view-task');
+        $this->title = $task->title;
+        $this->description = $task->description;
+        $this->status = $task->status;
+    }
 }

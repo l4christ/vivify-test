@@ -169,4 +169,35 @@
             </form>
         </div>
     </x-modal>
+    <x-modal name="view-task" :show="$errors->isNotEmpty()" focusable>
+        <div class="p-5">
+            <div class="mb-5 flex justify-between items-center">
+                <div>
+                    <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">{{ __('Title:') }}</span>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        {{ $title}}
+                    </p>
+                </div>
+
+                <div>
+                    <span
+                        class="dark:bg-gray-900 px-3 py-2 shadow text-sm font-semibold bg-green-400 opacity-50 rounded-full">{{
+                        $status ?? 'Active' }}</span>
+                </div>
+            </div>
+
+            <div>
+                <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">{{ __('Description:') }}</span>
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    {{ $description }}
+                </p>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Close') }}
+                </x-secondary-button>
+            </div>
+        </div>
+    </x-modal>
 </div>
