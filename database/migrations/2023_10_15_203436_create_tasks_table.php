@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->longText('description')->nullable();
+            $table->enum('status', ['todo', 'inprogress', 'done'])->default('todo');
             $table->timestamps();
         });
     }
