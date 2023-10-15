@@ -200,4 +200,46 @@
             </div>
         </div>
     </x-modal>
+    <x-modal name="edit-task" maxWidth="md" :show="$errors->isNotEmpty()" focusable>
+        <div class="p-5">
+            <h2>Edit Task</h2>
+            <form wire:submit="updateTask({{ $task_id }})">
+                <div class="mt-5">
+                    <x-input-label for="title" value="{{ __('title') }}" class="sr-only" />
+                    <x-text-input wire:model.blur="title" id="title" name="title" type="text" class="w-full"
+                        placeholder="{{ __('Title') }}" />
+                    <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                </div>
+                <div class="my-5">
+                    <x-input-label for="description" value="{{ __('description') }}" class="sr-only" />
+                    <textarea wire:model.blur="description" name="description"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                        id="description" cols="30" rows="5" placeholder="{{ __('Description') }}"></textarea>
+                    <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                </div>
+                <div class="">
+                    <x-input-label for="status" value="{{ __('status') }}" class="sr-only" />
+                    <select wire:model.blur="status" name="status"
+                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                        id="status">
+                        <option> Select Status</option>
+                        <option value="todo">Todo</option>
+                        <option value="inprogress">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('status')" class="mt-2" />
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Cancel') }}
+                    </x-secondary-button>
+
+                    <x-primary-button class="ml-3">
+                        {{ __('Update') }}
+                    </x-primary-button>
+                </div>
+            </form>
+        </div>
+    </x-modal>
+
 </div>

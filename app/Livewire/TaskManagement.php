@@ -67,4 +67,19 @@ class TaskManagement extends Component
         $this->description = $task->description;
         $this->status = $task->status;
     }
+    
+    /**
+     * editTask
+     *
+     * @param  mixed $task
+     * @return void
+     */
+    public function editTask(Task $task)
+    {
+        $this->dispatch('open-modal', 'edit-task');
+        $this->title = $task->title;
+        $this->description = $task->description;
+        $this->status = $task->status;
+        $this->task_id = $task->id;
+    }
 }
