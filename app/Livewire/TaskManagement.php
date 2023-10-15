@@ -8,7 +8,7 @@ use Livewire\Attributes\Rule;
 
 class TaskManagement extends Component
 {
-    public $task_id;
+    public $task_id, $search;
     
     #[Rule('required|min:3')]
     public $title;
@@ -19,9 +19,15 @@ class TaskManagement extends Component
     #[Rule('required|string|min:3')]
     public $status;
 
+    public function mount($search = null){
+        $this->search = $search;
+    }
+
     public function render()
     {
-        return view('livewire.task-management', ['tasks' => Task::query()->paginate(5)]);
+        return view('livewire.task-management', [
+            'tasks' => Task::where('title', 'like', "%{$this->search}%")->orWhere('description', 'like', "%{$this->search}%")->orderBy('id', 'desc')->paginate(5)
+        ]);
     }
 
     /**
