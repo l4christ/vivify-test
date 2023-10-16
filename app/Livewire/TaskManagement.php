@@ -4,10 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Task;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Livewire\Attributes\Rule;
 
 class TaskManagement extends Component
 {
+    use WithPagination;
     public $task_id, $search;
     
     #[Rule('required|min:3')]
