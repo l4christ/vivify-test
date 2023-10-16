@@ -64,6 +64,41 @@ class TaskManagementTest extends TestCase
  
         $this->assertEquals(0, Task::count());
     }
+
+    public function test_user_can_update_task()
+    {
+        // $this->withoutExceptionHandling();
+
+        $task = Task::factory()->create();
+
+        Livewire::test(TaskManagement::class)
+            ->set('title', 'another title')
+            ->set('description', 'another description')
+            ->set('status', 'done')
+            ->call('updateTask', $task);
+
+        $updatedTask = Task::first();
+
+        $this->assertEquals('another title', $updatedTask->title);
+        $this->assertEquals('another description', $updatedTask->description);
+        $this->assertEquals('done', $updatedTask->status);
+    }
+    
+    public function test_user_can_view_task()
+    {
+
+        Task::create([
+            'title' => 'title one',
+            'description' => 'dummy description',
+            'status' => 'todo'
+        ]);
+
+        Livewire::test(TaskManagement::class)
+            ->assertSee('title one')
+            ->assertSee('dummy description')
+            ->assertSee('todo')
+            ->assertStatus(200);
+    }
     
     
 }
