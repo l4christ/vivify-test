@@ -27,8 +27,10 @@ class TaskManagement extends Component
 
     public function render()
     {
+        // Create a query to fetch tasks and order them by ID in descending order
         $query = Task::orderBy('id', 'desc');
     
+        // Apply search filter if the search term is provided
         if ($this->search) {
             $query->where(function ($query) {
                 $query->where('title', 'like', "%{$this->search}%")
@@ -47,8 +49,9 @@ class TaskManagement extends Component
      *
      * @return void
      */
-    public function newTaskModal(): void
+    public function newTaskModal()
     {
+        // Reset form fields and open the new task modal
         $this->title = '';
         $this->description = '';
         $this->status = '';
@@ -63,6 +66,7 @@ class TaskManagement extends Component
      */
     public function createNewTask()
     {
+        // Validate input and create a new task
         $this->validate();
         Task::create([
             'title' => $this->title,
@@ -80,6 +84,7 @@ class TaskManagement extends Component
      */
     public function viewTask(Task $task)
     {
+        // Populate fields with task data and open the view task modal
         $this->dispatch('open-modal', 'view-task');
         $this->title = $task->title;
         $this->description = $task->description;
@@ -94,6 +99,7 @@ class TaskManagement extends Component
      */
     public function editTask(Task $task)
     {
+        // Populate fields with task data and open the edit task modal
         $this->dispatch('open-modal', 'edit-task');
         $this->title = $task->title;
         $this->description = $task->description;
@@ -109,6 +115,7 @@ class TaskManagement extends Component
      */
     public function updateTask(Task $task)
     {
+        // Validate input and update the task
         $this->validate();
         $task->update([
             'title' => $this->title,
@@ -126,6 +133,7 @@ class TaskManagement extends Component
      */
     public function deleteTask(Task $task)
     {
+        // Delete the task
         $task->delete();
     }
 }
