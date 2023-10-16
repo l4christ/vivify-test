@@ -85,6 +85,12 @@ Before you begin, make sure you have the following installed:
    php artisan test
    ```
 
+10. Database Seeder:
+
+   ```bash
+   php artisan db:seed
+   ```
+
 11. Visit `http://127.0.0.1:8000` in your web browser to access the application.
 
 ## Usage
