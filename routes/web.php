@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::get('/', function () {
+    return redirect()->route('register');
+});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
